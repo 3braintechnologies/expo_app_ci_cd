@@ -39,7 +39,7 @@ jobs:
         run: expo login --username ${{ secrets.EXPO_USERNAME }} --password ${{ secrets.EXPO_PASSWORD }}
 
       - name: Publish to Expo
-        run: eas update --branch preview
+        run: expo publish
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
 
