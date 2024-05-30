@@ -16,6 +16,12 @@ const config: ExpoConfig = {
     package: "com.skyward.my_app",
     versionCode: 1,
   },
+  updates: {
+    url: "https://u.expo.dev/fbf7aff9-ba3f-4495-a66b-2cf6a0ef1198",
+  },
+  runtimeVersion: {
+    policy: "appVersion",
+  },
 };
 
 export default config;
