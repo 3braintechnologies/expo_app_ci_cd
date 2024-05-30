@@ -43,10 +43,10 @@ jobs:
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
 
-      # - name: Build Android
-      #   run: eas build --platform android --output=./builds/android
-      #   env:
-      #     EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      - name: Build Android
+        run: eas build --platform android --output=./builds/android
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
 
       # - name: Build iOS
       #   run: eas build --platform ios --output=./builds/ios
