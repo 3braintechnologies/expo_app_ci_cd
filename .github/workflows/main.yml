@@ -41,7 +41,7 @@ jobs:
       - name: Publish to Expo
         run: expo publish
         env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          EXPO_TOKEN: ${{ secrets.TOKEN }}
 
       # - name: Build Android
       #   run: eas build --platform android --output=./builds/android
