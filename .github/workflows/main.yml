@@ -1,0 +1,71 @@
+name: Build, TS Check, and Release
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: TypeScript Check
+        run: npm run tsc
+        env:
+          CI: true
+
+      - name: Install Expo CLI
+        run: npm install -g expo-cli
+
+      - name: Install EAS CLI
+        run: npm install -g eas-cli
+
+      - name: Log in to Expo
+        run: expo login --username ${{ secrets.EXPO_USERNAME }} --password ${{ secrets.EXPO_PASSWORD }}
+
+      - name: Publish to Expo
+        run: expo publish
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
+      # - name: Build Android
+      #   run: eas build --platform android --output=./builds/android
+      #   env:
+      #     EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
+      # - name: Build iOS
+      #   run: eas build --platform ios --output=./builds/ios
+      #   env:
+      #     EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
+      # - name: Upload Android APK to Google Play
+      #   if: github.ref == 'refs/heads/main'
+      #   uses: r0adkll/upload-google-play@v1
+      #   with:
+      #     serviceAccountJson: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+      #     packageName: com.yourapp.package
+      #     releaseFile: ./builds/android/*.apk
+      #     track: production
+      #     releaseStatus: completed
+
+      # - name: Upload iOS IPA to App Store
+      #   if: github.ref == 'refs/heads/main'
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: ios-build
+      #     path: ./builds/ios/*.ipa
